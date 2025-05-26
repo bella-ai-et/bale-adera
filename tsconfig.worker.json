@@ -2,11 +2,25 @@
   "extends": "./tsconfig.node.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.worker.tsbuildinfo",
-    "types": ["./worker-configuration.d.ts", "vite/client"],
+    "types": [
+      "@cloudflare/workers-types",
+      "@cloudflare/workers-types/experimental",
+      "vite/client"
+    ],
     "baseUrl": ".",
     "paths": {
       "@worker/*": ["./worker/*"]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types",
+      "."
+    ]
   },
-  "include": ["worker"]
+  "include": [
+    "worker",
+    "worker-configuration.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }

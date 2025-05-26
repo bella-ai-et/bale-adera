@@ -80,6 +80,46 @@ npm run deploy
 
 
 
+## 🗄️ Database with Drizzle ORM
+
+This project uses [Drizzle ORM](https://orm.drizzle.team/) for type-safe database operations with Cloudflare D1.
+
+### Database Schema
+
+- Define your database schema in `src/db/schema.ts`
+- The schema is automatically synced with TypeScript types
+
+### Running Migrations
+
+```bash
+# Generate new migration
+npm run db:generate
+
+# Apply migrations
+npm run db:push
+
+# Open database UI (if configured)
+npm run db:studio
+```
+
+### Example Query
+
+```typescript
+import { db } from './db/client';
+import { users } from './db/schema';
+
+// Insert a new user
+const newUser = await db.insert(users).values({
+  name: 'John Doe',
+  email: 'john@example.com',
+}).returning();
+
+// Query users
+const allUsers = await db.select().from(users);
+```
+
+
+
 ## 🔧 Key Concepts
 
 *   **tRPC Server (Worker):** The Cloudflare Worker hosts the tRPC router. It defines procedures (queries and mutations) that the frontend can call.

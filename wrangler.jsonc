@@ -8,11 +8,18 @@
   "main": "worker/index.ts",
   "compatibility_date": "2025-04-10",
   "assets": {
-    "not_found_handling": "single-page-application",
+    "not_found_handling": "single-page-application"
   },
   "observability": {
-    "enabled": true,
+    "enabled": true
   },
+  "d1_databases": [
+    {
+      "binding": "DB",  // The name you'll use in your Worker code
+      "database_name": "baladera-db",  // The name you gave your database
+      "database_id": "0f82e228-75fa-4833-8e71-236c1f0035f2"  // The ID of your D1 database
+    }
+  ],
 
   /**
    * Smart Placement
@@ -31,11 +38,29 @@
    * Environment Variables
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
    */
-  // "vars": { "MY_VARIABLE": "production_value" },
-  /**
-   * Note: Use secrets to store sensitive data.
-   * https://developers.cloudflare.com/workers/configuration/secrets/
-   */
+  "vars": {
+    "NODE_ENV": "development"
+  },
+  
+  "dev": {
+    "port": 8787,
+    "ip": "0.0.0.0"
+  },
+  
+  "build": {
+    "command": "npm run build",
+    "cwd": "."
+  },
+  
+  "env": {
+    "production": {
+      "vars": {
+        "NODE_ENV": "production"
+      },
+      "route": "bale-adera.your-domain.workers.dev",
+      "routes": ["bale-adera.your-domain.workers.dev/*"]
+    }
+  }
 
   /**
    * Static Assets
